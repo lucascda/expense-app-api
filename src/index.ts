@@ -2,8 +2,16 @@ import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
 import connectToDatabase from "./db/db";
+import cors from "cors";
+import compression from "compression";
+import bodyParser from "body-parser";
+import helmet from "helmet";
 
 const app = express();
+app.use(bodyParser.json());
+app.use(cors());
+app.use(helmet());
+app.use(compression());
 const server = createServer(app);
 
 const port = process.env.PORT ?? 8080;
