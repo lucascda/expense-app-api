@@ -4,11 +4,12 @@ import { Pool } from "pg";
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
+export const db = drizzle(pool);
 
 export default async function connectToDatabase() {
   try {
     console.log("Trying to connect to database...");
-    const db = drizzle(pool);
+
     await db.execute("SELECT 1");
     console.log("Succesfully connected to database.");
     return db;
