@@ -19,7 +19,7 @@ const port = process.env.PORT ?? 8080;
 async function startServer() {
   try {
     await connectToDatabase();
-    server.listen(process.env.port, () => {
+    server.listen(process.env.PORT, () => {
       console.log(`Server listening on localhost:${port}`);
     });
   } catch (error) {
