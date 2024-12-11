@@ -1,4 +1,4 @@
-import { CreateUser } from "./user.dto";
+import CreateUser from "./user.dto";
 import UserAlreadyExistsError from "./user.error";
 import { UserRepository } from "./user.repository";
 import { hash } from "bcrypt";
