@@ -11,7 +11,7 @@ export const UserRepository = {
   save: async (data: User) => {
     try {
       const user = await db.insert(users).values(data).returning();
-      console.log(user);
+
       return user;
     } catch (error) {
       throw new Error("Error saving user");

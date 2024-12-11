@@ -10,7 +10,7 @@ export const createUserController = (
       res.status(201).json(user);
     } catch (error) {
       if (error instanceof Error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({ error: error.message, name: error.name });
       }
     }
   },
