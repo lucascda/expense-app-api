@@ -24,4 +24,14 @@ export const createUserController = (
       }
     }
   },
+  async profile(req: Request, res: Response) {
+    try {
+      const user = await userService.findById((req as any).user_id);
+      res.status(200).json(user);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message, name: error.name });
+      }
+    }
+  },
 });

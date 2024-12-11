@@ -37,4 +37,11 @@ export const createUserService = (
     const token = jwtService.signToken(user[0].id);
     return token;
   },
+  async findById(user_id: string) {
+    const user = await repository.findById(user_id);
+    if (user.length === 0) {
+      throw new Error("User not found");
+    }
+    return user[0];
+  },
 });
