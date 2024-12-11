@@ -1,11 +1,17 @@
 import z from "zod";
 
-export default interface CreateUser {
+export interface CreateUser {
   name: string;
   email: string;
   password: string;
   passwordConfirmation: string;
 }
+
+export interface SignInUser {
+  email: string;
+  password: string;
+}
+
 export interface User {
   name: string;
   email: string;

@@ -1,7 +1,7 @@
 import { db } from "db/db";
+import { User } from "./user.dto";
 import { users } from "db/schema";
 import { eq } from "drizzle-orm";
-import { User } from "./user.dto";
 
 export const UserRepository = {
   findByEmail: async (email: string) => {
