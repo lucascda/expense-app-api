@@ -1,7 +1,9 @@
-export class UserAlreadyExistsError extends Error {
-  constructor(message = "User already exists") {
+export class EmailAlreadyExistsError extends Error {
+  statusCode: number;
+  constructor(message = "Email already exists") {
     super(message);
-    this.name = "UserAlreadyExistsError";
+    this.statusCode = 409;
+    this.name = "EmailAlreadyExistsError";
   }
 }
 

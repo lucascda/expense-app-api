@@ -5,7 +5,7 @@ import {
   SignInRequest,
   SignInResponse,
 } from "./user.dto";
-import { UserAlreadyExistsError, InvalidCredentialsError } from "./user.error";
+import { InvalidCredentialsError, EmailAlreadyExistsError } from "./user.error";
 import { UserRepository } from "./user.repository";
 import { hash, compare } from "bcrypt";
 
@@ -17,7 +17,7 @@ export const createUserService = (
     let user = await repository.findByEmail(data.email);
 
     if (user.length === 1) {
-      throw new UserAlreadyExistsError();
+      throw new EmailAlreadyExistsError();
     }
     const hashedPassword = await hash(data.password, 10);
     const newUser = await repository.save({
