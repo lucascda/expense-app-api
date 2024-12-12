@@ -1,5 +1,10 @@
 import { createJwtService } from "utils/jwt";
-import { CreateUserRequest, CreateUserResponse, SignInUser } from "./user.dto";
+import {
+  CreateUserRequest,
+  CreateUserResponse,
+  SignInRequest,
+  SignInResponse,
+} from "./user.dto";
 import { UserAlreadyExistsError, InvalidCredentialsError } from "./user.error";
 import { UserRepository } from "./user.repository";
 import { hash, compare } from "bcrypt";
@@ -26,7 +31,7 @@ export const createUserService = (
       email: newUser[0].email,
     };
   },
-  async signIn(data: SignInUser) {
+  async signIn(data: SignInRequest): Promise<SignInResponse> {
     const user = await repository.findByEmail(data.email);
 
     if (user.length === 0) {
@@ -39,7 +44,7 @@ export const createUserService = (
       throw new InvalidCredentialsError();
     }
     const token = jwtService.signToken(user[0].id);
-    return token;
+    return { token };
   },
   async findById(user_id: string) {
     const user = await repository.findById(user_id);

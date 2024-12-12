@@ -6,16 +6,25 @@ export type CreateUserResponse = {
   email: string;
 };
 
-export interface SignInUser {
-  email: string;
-  password: string;
-}
+export type SignInResponse = {
+  token: string;
+};
 
 export interface User {
   name: string;
   email: string;
   password: string;
 }
+
+export const SignInSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Email is required and cannot be empty" }),
+  password: z
+    .string()
+    .min(1, { message: "Password is required and cannot be empty" }),
+});
+export type SignInRequest = z.infer<typeof SignInSchema>;
 
 export const CreateUserSchema = z
   .object({

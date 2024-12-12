@@ -4,7 +4,7 @@ import { createUserService } from "./user.service";
 import { UserRepository } from "./user.repository";
 import { createJwtService } from "utils/jwt";
 import { validate } from "utils/validation.middleware";
-import { CreateUserSchema } from "./user.dto";
+import { CreateUserSchema, SignInSchema } from "./user.dto";
 import { authMiddleware } from "utils/auth.middleware";
 
 const userRouter = Router();
@@ -13,7 +13,7 @@ const userService = createUserService(UserRepository, jwtService);
 const userController = createUserController(userService);
 
 userRouter.post("/", validate(CreateUserSchema), userController.createUser);
-userRouter.post("/signin", userController.signIn);
+userRouter.post("/signin", validate(SignInSchema), userController.signIn);
 userRouter.get(
   "/me",
   authMiddleware.authenticateRequest,
