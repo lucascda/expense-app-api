@@ -8,8 +8,10 @@ export class EmailAlreadyExistsError extends Error {
 }
 
 export class InvalidCredentialsError extends Error {
+  statusCode: number;
   constructor(message = "Invalid credentials") {
     super(message);
+    this.statusCode = 401;
     this.name = "InvalidCredentialsError";
   }
 }
