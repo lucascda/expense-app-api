@@ -1,11 +1,10 @@
 import z from "zod";
 
-export interface CreateUser {
+export type CreateUserResponse = {
+  id: string;
   name: string;
   email: string;
-  password: string;
-  passwordConfirmation: string;
-}
+};
 
 export interface SignInUser {
   email: string;
@@ -37,3 +36,4 @@ export const CreateUserSchema = z
     message: "Passwords don't match",
     path: ["confirm"],
   });
+export type CreateUserRequest = z.infer<typeof CreateUserSchema>;

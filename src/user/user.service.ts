@@ -1,5 +1,5 @@
 import { createJwtService } from "utils/jwt";
-import { CreateUser, SignInUser } from "./user.dto";
+import { CreateUserRequest, CreateUserResponse, SignInUser } from "./user.dto";
 import { UserAlreadyExistsError, InvalidCredentialsError } from "./user.error";
 import { UserRepository } from "./user.repository";
 import { hash, compare } from "bcrypt";
@@ -8,7 +8,7 @@ export const createUserService = (
   repository: typeof UserRepository,
   jwtService: ReturnType<typeof createJwtService>
 ) => ({
-  async create(data: CreateUser) {
+  async create(data: CreateUserRequest): Promise<CreateUserResponse> {
     let user = await repository.findByEmail(data.email);
 
     if (user.length === 1) {
@@ -20,7 +20,11 @@ export const createUserService = (
       email: data.email,
       password: hashedPassword,
     });
-    return newUser;
+    return {
+      id: newUser[0].id,
+      name: newUser[0].name,
+      email: newUser[0].email,
+    };
   },
   async signIn(data: SignInUser) {
     const user = await repository.findByEmail(data.email);
