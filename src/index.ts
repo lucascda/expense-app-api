@@ -9,6 +9,7 @@ import helmet from "helmet";
 import userRouter from "user/user.router";
 import { validate } from "utils/validation.middleware";
 import { CreateUserSchema } from "user/user.dto";
+import { errorHandlerMiddleware } from "utils/error-handler.middleware";
 
 const app = express();
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ app.use(cors());
 app.use(helmet());
 app.use(compression());
 app.use("/users", userRouter);
+app.use(errorHandlerMiddleware);
 const server = createServer(app);
 
 const port = process.env.PORT ?? 8080;
