@@ -10,13 +10,16 @@ import userRouter from "user/user.router";
 import { validate } from "utils/validation.middleware";
 import { CreateUserSchema } from "user/user.dto";
 import { errorHandlerMiddleware } from "utils/error-handler.middleware";
+import expenseRouter from "expense/expense.router";
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(helmet());
 app.use(compression());
+app.use("/users", expenseRouter);
 app.use("/users", userRouter);
+
 app.use(errorHandlerMiddleware);
 const server = createServer(app);
 
